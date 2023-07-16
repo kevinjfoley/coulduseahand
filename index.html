@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>I Could Use a Hand</title>
+    <script>
+      function loadCredentials() {
+        let user_token = localStorage.getItem("user");
+        let app_token = localStorage.getItem("app");
+
+        document.getElementById("user-token").value = user_token;
+        document.getElementById("token").value = app_token;
+      }
+
+      function cacheCredentials() {
+        localStorage.setItem("user", document.getElementById("user-token").value);
+        localStorage.setItem("app", document.getElementById("token").value);
+      }
+    </script>
+  </head>
+  <body onload="loadCredentials()">
+    <form action="https://api.pushover.net/1/messages.json" method="post" onsubmit="cacheCredentials()">
+      <input id="token" name="token" type="password"><br><br>
+      <input id="user-token" name="user" type="password"><br><br>
+      <input id="message" name="message" type="text"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>
