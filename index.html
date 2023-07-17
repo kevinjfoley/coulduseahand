@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <title>I Could Use a Hand</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script>
       function loadCredentials() {
         let user_token = localStorage.getItem("user");
@@ -19,10 +23,22 @@
   </head>
   <body onload="loadCredentials()">
     <form action="https://api.pushover.net/1/messages.json" method="post" onsubmit="cacheCredentials()">
-      <input id="token" name="token" type="password"><br><br>
-      <input id="user-token" name="user" type="password"><br><br>
+      <label for="message" class="form-label">Message</label>
       <input id="message" name="message" type="text"><br><br>
       <input type="submit" value="Submit">
+      <p>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#credentials" aria-expanded="false" aria-controls="collapseExample">
+          Edit Pushover Credentials
+        </button>
+      </p>
+      <div class="collapse" id="credentials">
+        <div class="card card-body">
+          <label for="token" class="form-label">Application Token</label>
+          <input id="token" name="token" type="password"><br>
+          <label for="user-token" class="form-label">User Token</label>
+          <input id="user-token" name="user" type="password"><br>
+        </div>
+      </div>
     </form>
   </body>
 </html>
