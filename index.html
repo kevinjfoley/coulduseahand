@@ -22,7 +22,7 @@
     </script>
   </head>
   <body onload="loadCredentials()">
-    <form action="https://api.pushover.net/1/messages.json" method="post" onsubmit="cacheCredentials()">
+    <form action="https://api.pushover.net/1/messages.json" method="post" onsubmit="cacheCredentials()" target="_blank">
       <input id="priority" name="priority" type="hidden" value="1">
       <label for="message" class="form-label">Message</label>
       <input id="message" name="message" type="text"><br><br>
