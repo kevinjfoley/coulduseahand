@@ -7,37 +7,49 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script>
-      function loadCredentials() {
+      function loadSettings() {
         let user_token = localStorage.getItem("user");
         let app_token = localStorage.getItem("app");
+        let default_message = localStorage.getItem("default-message");
 
         document.getElementById("user-token").value = user_token;
         document.getElementById("token").value = app_token;
+        document.getElementById("default-message").value = default_message;
       }
 
-      function cacheCredentials() {
+      function cacheSettings() {
         localStorage.setItem("user", document.getElementById("user-token").value);
         localStorage.setItem("app", document.getElementById("token").value);
+        localStorage.setItem("default-message", document.getElementById("default-message").value);
+      }
+
+      function sendMessage() {
+        let messageForm = document.getElementById("messageForm")
+        document.getElementById("message").value = document.getElementById("default-message").value
+        messageForm.submit()
+        cacheSettings()
       }
     </script>
   </head>
-  <body onload="loadCredentials()">
-    <form action="https://api.pushover.net/1/messages.json" method="post" onsubmit="cacheCredentials()" target="_blank">
+  <body onload="loadSettings()">
+    <form id="messageForm" action="https://api.pushover.net/1/messages.json" method="post" onsubmit="cacheSettings()" target="_blank">
       <input id="priority" name="priority" type="hidden" value="1">
       <label for="message" class="form-label">Message</label>
       <input id="message" name="message" type="text"><br><br>
-      <input type="submit" value="Submit">
+      <input type="button" value="Send" onClick="sendMessage()">
       <p>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#credentials" aria-expanded="false" aria-controls="collapseExample">
-          Edit Pushover Credentials
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#settings" aria-expanded="false" aria-controls="collapseExample">
+          Edit Settings and Credentials
         </button>
       </p>
-      <div class="collapse" id="credentials">
+      <div class="collapse" id="settings">
         <div class="card card-body">
           <label for="token" class="form-label">Application Token</label>
           <input id="token" name="token" type="password"><br>
           <label for="user-token" class="form-label">User Token</label>
           <input id="user-token" name="user" type="password"><br>
+          <label for="default-message" class="form-label">Default Message</label>
+          <input id="default-message" name="default-message" type="text"><br>
         </div>
       </div>
     </form>
